@@ -1,0 +1,5 @@
+---
+wazuh_agent_supported_distros:
+  ubuntu:
+    - 22.04
+    - 24.04

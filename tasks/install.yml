@@ -1,0 +1,33 @@
+---
+- name: Block for Debian based distribtions.
+  block:
+    - name: Add Wazuh repository signing key.
+      become: true
+      ansible.builtin.apt_key:
+        url: "{{ wazuh_agent_repository_key_url }}"
+        state: present
+        keyring: /usr/share/keyrings/wazuh.gpg
+
+    - name: Add Wazuh repository.
+      become: true
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/wazuh.gpg] {{ wazuh_agent_repository_url }}/{{ wazuh_agent_version_pattern }}/apt/ stable main"
+        state: present
+        filename: wazuh.list
+  when: ansible_os_family | lower == "debian"
+
+
+- name: Install Wazuh agent.
+  become: true
+  ansible.builtin.package:
+    name: wazuh-agent
+    state: present
+    update_cache: true
+  environment:
+    WAZUH_MANAGER: "{{ wazuh_agent_manager }}"
+
+- name: Prevent Wazuh agent to be upgraded if configured.
+  become: true
+  ansible.builtin.dpkg_selections:
+    name: wazuh-agent
+    selection: "{{ 'hold' if wazuh_agent_package_hold else 'install' }}"

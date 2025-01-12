@@ -1,0 +1,6 @@
+---
+wazuh_agent_manager:
+wazuh_agent_package_hold: true
+wazuh_agent_repository_key_url: "{{ wazuh_agent_repository_url }}/key/GPG-KEY-WAZUH"
+wazuh_agent_repository_url: https://packages.wazuh.com
+wazuh_agent_version_pattern: "4.x"
