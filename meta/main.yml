@@ -1,1 +1,18 @@
 ---
+galaxy_info:
+  author: Mattias Jonsson
+  namespace: mattias-jonsson
+  description: This Ansible role installs and upgrades the Wazuh agent on supported Operating Systems.
+  min_ansible_version: 2.16.0
+  role_name: vmware_tools
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - "22.04"
+        - "24.04"
+  galaxy_tags:
+    - wazuh
+    - ossec
+    - siem
+    - security
